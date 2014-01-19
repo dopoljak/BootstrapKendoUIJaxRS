@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+    
+    <display-name>TestREST2</display-name>
+    
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
+    
+    <!-- INIT JAX-RS 2.X -->
+    <servlet>
+        <servlet-name>jaxrs</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>com.ilirium.bootstrapkendouijaxrs.service</param-value>
+        </init-param>
+        <!--init-param>
+            <param-name>jersey.config.server.provider.classnames</param-name>
+            <param-value>org.glassfish.jersey.filter.LoggingFilter</param-value>
+        </init-param-->
+        <load-on-startup>1</load-on-startup>  
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jaxrs</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+    
+
+    <!-- DUMP FILTER -->
+    <filter>
+        <filter-name>DumpFilter</filter-name>
+        <filter-class>com.ilirium.bootstrapkendouijaxrs.aop.DumpFilter</filter-class>
+        <init-param>
+            <param-name>dumpRequest</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>dumpResponse</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>DumpFilter</filter-name>
+        <url-pattern>/api/*</url-pattern>
+    </filter-mapping>
+ 
+</web-app>
